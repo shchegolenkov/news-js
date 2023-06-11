@@ -13,13 +13,15 @@
     "parser": "@typescript-eslint/parser",
     "parserOptions": {
         "ecmaVersion": 2020,
-        "sourceType": "module"
+        "sourceType": "module",
+        "project": "./tsconfig.json"
     },
     "env": {
         "es6": true,
         "browser": true,
         "node": true
     },
+    "ignorePatterns": ["webpack.config.js"],
     "rules": {
         "no-debugger": "off",
         "no-console": 0,
