@@ -1,7 +1,18 @@
+html {
+    scrollbar-gutter: stable;
+}
+
 body {
     color: #fff;
     background: #17181c;
+    background-size: cover;
+    background-attachment: fixed;
     font-family: sans-serif;
+    min-width: 290px;
+    min-height: calc(100vh - 16px);
+    display: flex;
+    flex-direction: column;
+    scrollbar-gutter: stable;
 }
 
 header {
@@ -9,8 +20,12 @@ header {
 }
 
 header h1 {
-    font-size: 40px;
+    font-size: 34px;
     font-weight: 800;
+}
+
+main {
+    flex-grow: 1;
 }
 
 footer {
@@ -18,18 +33,33 @@ footer {
     display: flex;
     align-items: center;
     justify-content: center;
+    gap: 15px;
 }
+
 footer .copyright {
     font-size: 14px;
-    color: #333;
+    color: #fff;
     text-align: center;
 }
+
 footer .copyright a {
-    color: #444;
+    color: #fff;
+    transition: 0.3s;
+    text-decoration-color: transparent;
 }
+
 footer .copyright a:hover {
-    color: #555;
+    text-decoration-color: #fff;
 }
+
+footer a svg {
+    transition: transform 0.3s;
+}
+
+footer a:hover svg {
+    transform: scale(1.1);
+}
+
 footer .copyright:before {
     content: '©';
 }
