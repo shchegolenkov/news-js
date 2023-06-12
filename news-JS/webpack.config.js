@@ -14,6 +14,14 @@ const baseConfig = {
                 test: /\.css$/i,
                 use: ['style-loader', 'css-loader'],
             },
+            {
+                test: /\.(ico|gif|png|jpg|jpeg)$/i,
+                type: 'asset/resource',
+            },
+            {
+                test: /\.html$/i,
+                use: 'html-loader',
+            },
         ],
     },
     resolve: {

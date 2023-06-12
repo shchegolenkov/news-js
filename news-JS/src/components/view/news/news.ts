@@ -1,5 +1,6 @@
 import './news.css';
 import { Article } from '../../../types/index';
+import imagePlaceholder from '../../../img/news_placeholder.jpg';
 
 class News {
     public draw(data: Article[]): void {
@@ -19,7 +20,7 @@ class News {
                 if (newsMetaPhoto !== null)
                     newsMetaPhoto.setAttribute(
                         'style',
-                        `background-image: url(${item.urlToImage || 'img/news_placeholder.jpg'});`
+                        `background-image: url(${item.urlToImage || imagePlaceholder});`
                     );
                 const newsMetaAuthor: Element | null = newsClone.querySelector('.news__meta-author');
                 if (newsMetaAuthor !== null) newsMetaAuthor.textContent = item.author || item.source.name;
