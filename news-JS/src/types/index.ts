@@ -13,11 +13,13 @@ export interface NewsAPIResponse {
     sources: Source[];
 }
 
+type ArticleSource = {
+    id: string | null;
+    name: string;
+};
+
 export interface Article {
-    source: {
-        id: string | null;
-        name: string;
-    };
+    source: ArticleSource;
     author: string | null;
     title: string;
     description: string;
@@ -31,4 +33,9 @@ export interface NewsResponse {
     status: string;
     totalResults: number;
     articles: Article[];
+}
+
+export enum Endpoints {
+    sources = 'sources',
+    everything = 'everything',
 }
