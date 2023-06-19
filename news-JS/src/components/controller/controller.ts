@@ -1,8 +1,8 @@
 import AppLoader from './appLoader';
-import { NewsAPIResponse, NewsResponse, Endpoints } from '../../types/index';
+import { NewsAPICallback, NewsCallback, Endpoints } from 'types/index';
 
 class AppController extends AppLoader {
-    public getSources(callback: ((data?: NewsAPIResponse) => void) | undefined): void {
+    public getSources(callback: NewsAPICallback): void {
         super.getResp(
             {
                 endpoint: Endpoints.sources,
@@ -11,11 +11,15 @@ class AppController extends AppLoader {
         );
     }
 
-    public getNews(e: Event, callback: ((data?: NewsResponse) => void) | undefined): void {
+    public getNews(e: MouseEvent, callback: NewsCallback): void {
         let target: EventTarget | null = e.target;
         const newsContainer: EventTarget | null = e.currentTarget;
 
-        while (target !== newsContainer && target instanceof HTMLElement && newsContainer instanceof HTMLElement) {
+        if (!(newsContainer instanceof HTMLElement)) {
+            return;
+        }
+
+        while (target !== newsContainer && target instanceof HTMLElement) {
             if (target.classList.contains('source__item')) {
                 newsContainer.querySelector('.source__item--active')?.classList.remove('source__item--active');
                 target.classList.add('source__item--active');

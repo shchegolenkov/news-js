@@ -26,6 +26,9 @@ const baseConfig = {
     },
     resolve: {
         extensions: ['.ts', '.js', '.json'],
+        alias: {
+            types: path.resolve(__dirname, './src/types/')
+        }
     },
     output: {
         filename: 'index.js',

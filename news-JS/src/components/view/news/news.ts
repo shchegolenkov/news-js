@@ -1,10 +1,10 @@
 import './news.css';
-import { Article } from '../../../types/index';
-import imagePlaceholder from '../../../img/news_placeholder.jpg';
+import { Article } from 'types/index';
+import imagePlaceholder from '../../../img/news-placeholder.jpg';
 
 class News {
     public draw(data: Article[]): void {
-        const news: Article[] = data.length >= 10 ? data.filter((_item, idx: number) => idx < 10) : data;
+        const news: Article[] = data.length >= 10 ? data.slice(0, 10) : data;
 
         const fragment: DocumentFragment = document.createDocumentFragment();
         const newsItemTemp: HTMLTemplateElement | null = document.querySelector('#newsItemTemp');
@@ -13,7 +13,7 @@ class News {
             news.forEach((item: Article, idx: number) => {
                 const newsClone: Node = newsItemTemp.content.cloneNode(true);
                 if (!(newsClone instanceof DocumentFragment)) {
-                    throw new Error();
+                    throw new Error('Failed to clone newsItemTemp');
                 }
                 if (idx % 2) newsClone.querySelector('.news__item')?.classList.add('alt');
                 const newsMetaPhoto: Element | null = newsClone.querySelector('.news__meta-photo');

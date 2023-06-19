@@ -4,9 +4,8 @@ html {
 
 body {
     color: #fff;
-    background: #17181c;
+    background: #17181c fixed;
     background-size: cover;
-    background-attachment: fixed;
     font-family: sans-serif;
     min-width: 290px;
     min-height: calc(100vh - 16px);
@@ -36,19 +35,23 @@ footer {
     gap: 15px;
 }
 
-footer .copyright {
+.copyright {
     font-size: 14px;
     color: #fff;
     text-align: center;
 }
 
-footer .copyright a {
+.copyright:before {
+    content: '©';
+}
+
+.copyright a {
     color: #fff;
     transition: 0.3s;
     text-decoration-color: transparent;
 }
 
-footer .copyright a:hover {
+.copyright a:hover {
     text-decoration-color: #fff;
 }
 
@@ -58,8 +61,4 @@ footer a svg {
 
 footer a:hover svg {
     transform: scale(1.1);
-}
-
-footer .copyright:before {
-    content: '©';
 }

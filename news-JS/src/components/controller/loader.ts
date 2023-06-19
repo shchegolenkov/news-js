@@ -1,17 +1,22 @@
+import { NewsAPIResponse, NewsResponse, Endpoints, StringObject, isResponseCorrectData } from 'types/index';
+
 class Loader {
-    private baseLink: string;
-    private options: Record<string, string>;
-    constructor(baseLink: string, options: Record<string, string>) {
+    private readonly baseLink: string;
+    private readonly options: StringObject;
+
+    constructor(baseLink: string, options: StringObject) {
         this.baseLink = baseLink;
         this.options = options;
     }
 
     public getResp(
-        { endpoint, options = {} }: { endpoint: string; options?: Record<string, string> },
-        callback = (): void => {
-            console.error('No callback for GET response');
-        }
+        { endpoint, options = {} }: { endpoint: Endpoints; options?: StringObject },
+        callback?: () => void
     ): void {
+        if (!callback) {
+            console.error('No callback for GET response');
+            return;
+        }
         this.load('GET', endpoint, callback, options);
     }
 
@@ -25,7 +30,7 @@ class Loader {
         return res;
     }
 
-    private makeUrl(options: Record<string, string>, endpoint: string): string {
+    private makeUrl(options: StringObject, endpoint: string): string {
         const urlOptions = { ...this.options, ...options };
         let url = `${this.baseLink}${endpoint}?`;
 
@@ -36,11 +41,22 @@ class Loader {
         return url.slice(0, -1);
     }
 
-    private load<T>(method: string, endpoint: string, callback: (data: T) => void, options = {}): void {
+    private load(
+        method: string,
+        endpoint: string,
+        callback: (data: NewsAPIResponse | NewsResponse) => void,
+        options = {}
+    ): void {
         fetch(this.makeUrl(options, endpoint), { method })
             .then(this.errorHandler)
             .then((res: Response) => res.json())
-            .then((data: T) => callback(data))
+            .then((data: unknown) => {
+                if (isResponseCorrectData(data)) {
+                    callback(data);
+                } else {
+                    console.error('Unexpected data format');
+                }
+            })
             .catch((err: Error) => console.error(err));
     }
 }
